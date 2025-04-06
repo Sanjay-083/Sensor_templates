@@ -1,19 +1,23 @@
-// sensors like LDR, LM35 Temperature Sensor, Soil Moisture Sensor
-// Define the analog pin where the sensor is connected
-#define ANALOG_SENSOR_PIN A0
+// Sensors like Potentiometer, LDR, Analog Temperature Sensor (e.g., TMP36)
+
+// ======= CONFIGURATION ========
+#define SENSOR_TYPE 2       // 2 = ANALOG
+#define ANALOG 2
+#define ANALOG_SENSOR_PIN A0  // Connect your analog sensor to this pin
 
 void setup() {
-  // Start serial communication
   Serial.begin(9600);
+  // No pinMode needed for analogRead
 }
 
 void loop() {
-  // Read the analog value (0 to 1023)
-  int sensorValue = analogRead(ANALOG_SENSOR_PIN);
+  #if SENSOR_TYPE == ANALOG
+    readAnalogSensor();
+  #endif
+  delay(500);
+}
 
-  // Print the analog value
-  Serial.print("Analog Sensor Value: ");
-  Serial.println(sensorValue);
-
-  delay(500); // Delay to make output readable
+// ===== ANALOG SENSOR FUNCTION =====
+void readAnalogSensor() {
+  // sensor working logic
 }

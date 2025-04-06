@@ -1,38 +1,29 @@
-// sensors like BME280, MPU6050
-// Include required libraries for I2C and BME280
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BME280.h>
+//for I2C sensors, we don’t define specific data pins manually (like SDA and SCL) 
+//in most Arduino boards because they're hardware-defined (e.g., A4/A5 on UNO, 21/22 on ESP32).
+// Sensors like MPU6050, BH1750, I2C LCD
 
-// Create a BME280 object
-Adafruit_BME280 bme;
+#include <Wire.h>
+
+// ======= CONFIGURATION ========
+#define SENSOR_TYPE 3       // 3 = I2C
+#define I2C 3
 
 void setup() {
-  // Start serial communication
   Serial.begin(9600);
-  Wire.begin(); // Initialize I2C communication
-
-  // Initialize the BME280 sensor at address 0x76
-  if (!bme.begin(0x76)) {
-    Serial.println("BME280 not detected. Please check wiring.");
-    while (1); // Halt if not found
-  }
+  #if SENSOR_TYPE == I2C
+    Wire.begin(); // Initialize I2C communication (uses default SDA/SCL pins)
+    // sensor.begin(); // Add your I2C sensor initialization here
+  #endif
 }
 
 void loop() {
-  // Read temperature in Celsius
-  float temp = bme.readTemperature();
+  #if SENSOR_TYPE == I2C
+    readI2CSensor();
+  #endif
+  delay(500);
+}
 
-  // Read humidity in %
-  float humidity = bme.readHumidity();
-
-  // Read pressure in hPa
-  float pressure = bme.readPressure() / 100.0F;
-
-  // Print values to Serial Monitor
-  Serial.print("Temp: "); Serial.print(temp); Serial.print(" °C, ");
-  Serial.print("Humidity: "); Serial.print(humidity); Serial.print(" %, ");
-  Serial.print("Pressure: "); Serial.print(pressure); Serial.println(" hPa");
-
-  delay(1000); // Wait 1 second before next reading
+// ===== I2C SENSOR FUNCTION =====
+void readI2CSensor() {
+  // sensor working logic
 }

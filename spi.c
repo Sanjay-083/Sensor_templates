@@ -1,31 +1,29 @@
-// Include MAX6675 library
-#include "max6675.h"
+// Sensors like MFRC522 RFID, SD card modules
 
-// Define SPI pins for MAX6675
-int SO = 12;   // MISO - Master In Slave Out
-int CS = 10;   // Chip Select (also called SS - Slave Select)
-int SCK = 13;  // Clock
+#include <SPI.h>
 
-// Create MAX6675 object
-MAX6675 thermocouple(SCK, CS, SO);
+// ======= CONFIGURATION ========
+#define SENSOR_TYPE 4       // 4 = SPI
+#define SPI_TYPE 4
+#define CS_PIN 10           // Chip Select pin for your SPI sensor
 
 void setup() {
-  // Start serial communication
   Serial.begin(9600);
-
-  // Initial delay for sensor stability
-  delay(500);
-  Serial.println("Reading temperature from MAX6675:");
+  #if SENSOR_TYPE == SPI
+    SPI.begin(); // Initialize SPI
+    pinMode(CS_PIN, OUTPUT); // Setup Chip Select pin
+    // sensor.begin(); // Add your SPI sensor init here
+  #endif
 }
 
 void loop() {
-  // Read temperature in Celsius
-  float temp = thermocouple.readCelsius();
+  #if SENSOR_TYPE == SPI
+    readSPISensor();
+  #endif
+  delay(500);
+}
 
-  // Print the temperature value
-  Serial.print("Temperature: ");
-  Serial.print(temp);
-  Serial.println(" °C");
-
-  delay(1000); // Wait for next reading
+// ===== SPI SENSOR FUNCTION =====
+void readSPISensor() {
+  // sensor working logic
 }

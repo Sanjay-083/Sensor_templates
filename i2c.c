@@ -1,29 +1,21 @@
-//for I2C sensors, we don’t define specific data pins manually (like SDA and SCL) 
-//in most Arduino boards because they're hardware-defined (e.g., A4/A5 on UNO, 21/22 on ESP32).
-// Sensors like MPU6050, BH1750, I2C LCD
+// For I2C sensors like MPU6050, BH1750, I2C LCD
+// Note: SDA and SCL pins are hardware-defined (e.g., A4/A5 on UNO, 21/22 on ESP32)
 
 #include <Wire.h>
 
-// ======= CONFIGURATION ========
-#define SENSOR_TYPE 3       // 3 = I2C
-#define I2C 3
-
 void setup() {
   Serial.begin(9600);
-  #if SENSOR_TYPE == I2C
-    Wire.begin(); // Initialize I2C communication (uses default SDA/SCL pins)
-    // sensor.begin(); // Add your I2C sensor initialization here
-  #endif
+  Wire.begin(); // Initialize I2C communication
+  // sensor.begin(); // Add your I2C sensor's specific initialization here
 }
 
 void loop() {
-  #if SENSOR_TYPE == I2C
-    readI2CSensor();
-  #endif
-  delay(500);
+  readI2CSensor();
+  delay(500); // Small delay for readability
 }
 
 // ===== I2C SENSOR FUNCTION =====
 void readI2CSensor() {
-  // sensor working logic
+  // Add your sensor reading logic here
+  // Example: read data from the I2C sensor and print to Serial
 }

@@ -2,28 +2,22 @@
 
 #include <SPI.h>
 
-// ======= CONFIGURATION ========
-#define SENSOR_TYPE 4       // 4 = SPI
-#define SPI_TYPE 4
-#define CS_PIN 10           // Chip Select pin for your SPI sensor
+#define CS_PIN 10 // Chip Select pin for your SPI sensor
 
 void setup() {
   Serial.begin(9600);
-  #if SENSOR_TYPE == SPI
-    SPI.begin(); // Initialize SPI
-    pinMode(CS_PIN, OUTPUT); // Setup Chip Select pin
-    // sensor.begin(); // Add your SPI sensor init here
-  #endif
+  SPI.begin();              // Initialize SPI communication
+  pinMode(CS_PIN, OUTPUT);  // Setup Chip Select pin
+  // sensor.begin();        // Add your SPI sensor initialization here
 }
 
 void loop() {
-  #if SENSOR_TYPE == SPI
-    readSPISensor();
-  #endif
-  delay(500);
+  readSPISensor();
+  delay(500); // Small delay for readability
 }
 
 // ===== SPI SENSOR FUNCTION =====
 void readSPISensor() {
-  // sensor working logic
+  // Add your SPI sensor reading logic here
+  // Example: communicate with sensor using SPI.transfer() and print result
 }
